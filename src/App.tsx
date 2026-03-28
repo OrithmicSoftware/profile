@@ -18,6 +18,29 @@ const CONTACT_EMAIL = 'v0538276702@gmail.com'
 /** WhatsApp chat — same number as +972 53-827-6702 */
 const WHATSAPP_URL = 'https://wa.me/972538276702'
 
+const ORITHMIC_MARK = `${import.meta.env.BASE_URL}orithmic-mark.svg`
+/** Orithmic Software on GitHub */
+const ORITHMIC_ORG_URL = 'https://github.com/OrithmicSoftware'
+
+function OrithmicLogoImg({
+  className,
+  size = 36,
+}: {
+  className?: string
+  size?: number
+}) {
+  return (
+    <img
+      src={ORITHMIC_MARK}
+      alt=""
+      width={size}
+      height={size}
+      className={className}
+      decoding="async"
+    />
+  )
+}
+
 /** Brand-colored logos — cdn.simpleicons.org (slug+hex); `src` overrides when CDN slug 404s */
 const stackLogos = [
   { slug: 'nodedotjs', label: 'Node.js', color: '339933' },
@@ -115,10 +138,10 @@ function skillTagHash(s: string): number {
 }
 
 const skillTagSizeClass = [
-  'px-2 py-0.5 text-[11px] leading-tight',
-  'px-2.5 py-1 text-xs',
-  'px-3 py-1 text-sm',
-  'px-3.5 py-1.5 text-base font-semibold tracking-tight',
+  'px-1.5 py-0.5 text-[10px] leading-tight sm:px-2 sm:text-[11px]',
+  'px-2 py-0.5 text-[11px] sm:px-2.5 sm:py-1 sm:text-xs',
+  'px-2 py-0.5 text-xs sm:px-3 sm:py-1 sm:text-sm',
+  'px-2.5 py-1 text-sm font-semibold tracking-tight sm:px-3.5 sm:py-1.5 sm:text-base',
 ] as const
 
 function SkillsTagCloud() {
@@ -143,11 +166,11 @@ function SkillsTagCloud() {
 
   return (
     <div
-      className="rounded-2xl border border-white/[0.07] bg-zinc-950/40 p-5 md:p-8"
+      className="rounded-2xl border border-white/[0.07] bg-zinc-950/40 p-4 sm:p-5 md:p-8"
       onPointerLeave={() => setActiveKey(null)}
     >
       <ul
-        className="flex flex-wrap content-start justify-center gap-x-1.5 gap-y-2 md:gap-x-2 md:gap-y-2.5"
+        className="flex flex-wrap content-start justify-center gap-x-1 gap-y-1.5 sm:gap-x-1.5 sm:gap-y-2 md:gap-x-2 md:gap-y-2.5"
         aria-label="Skills keyword cloud"
       >
         {tags.map(
@@ -171,9 +194,9 @@ function SkillsTagCloud() {
                     skillTagSizeClass[sizeIdx],
                     skillChipClass[variant],
                     isActive
-                      ? 'relative z-10 scale-[1.28] brightness-125 shadow-[0_0_28px_-2px_rgba(45,212,191,0.55)]'
+                      ? 'relative z-10 scale-[1.12] brightness-125 shadow-[0_0_28px_-2px_rgba(45,212,191,0.55)] sm:scale-[1.28]'
                       : dimOthers
-                        ? 'scale-[0.78] opacity-50 saturate-50'
+                        ? 'scale-[0.85] opacity-50 saturate-50 sm:scale-[0.78]'
                         : 'scale-100 opacity-100 saturate-100',
                   ].join(' ')}
                 >
@@ -294,11 +317,11 @@ function SectionTitle({
   id: string
 }) {
   return (
-    <div id={id} className="mb-10 scroll-mt-24">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-eyebrow">
+    <div id={id} className="mb-8 scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] sm:mb-10 md:scroll-mt-28">
+      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gradient-eyebrow sm:text-xs sm:tracking-[0.2em]">
         {eyebrow}
       </p>
-      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-100 md:text-3xl">
+      <h2 className="mt-2 text-xl font-semibold tracking-tight text-zinc-100 sm:text-2xl md:text-3xl">
         {title}
       </h2>
     </div>
@@ -352,7 +375,7 @@ function MailIcon({ className }: { className?: string }) {
 }
 
 const contactIconBtnClass =
-  'inline-flex items-center justify-center rounded-lg p-2 text-zinc-400 ring-1 ring-zinc-700 transition hover:bg-white/5 hover:text-teal-300'
+  'inline-flex items-center justify-center rounded-lg p-1.5 text-zinc-400 ring-1 ring-zinc-700 transition hover:bg-white/5 hover:text-teal-300 sm:p-2'
 
 type CompanyBrand =
   | { kind: 'icon'; slug: string; color: string }
@@ -385,9 +408,9 @@ function CompanyBrandMark({ brand }: { brand: CompanyBrand }) {
   }
   if (brand.kind === 'image') {
     const sizeClass = brand.readable
-      ? 'h-9 max-w-[13rem]'
+      ? 'h-8 max-w-[min(100%,10rem)] sm:h-9 sm:max-w-[13rem]'
       : brand.wide
-        ? 'h-7 max-w-[9rem]'
+        ? 'h-6 max-w-[min(100%,7.5rem)] sm:h-7 sm:max-w-[9rem]'
         : 'h-5 max-w-[5.5rem]'
     const img = (
       <img
@@ -432,14 +455,14 @@ function TechLogoStrip() {
   return (
     <section
       id="stack"
-      className="scroll-mt-20 border-b border-white/[0.06] bg-gradient-to-b from-teal-500/[0.03] to-transparent"
+      className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] border-b border-white/[0.06] bg-gradient-to-b from-teal-500/[0.03] to-transparent md:scroll-mt-24"
     >
-      <div className="mx-auto max-w-5xl px-5 py-12 md:px-8 md:py-14">
-        <p className="mb-8 text-center font-mono text-xs uppercase tracking-[0.2em] text-gradient-eyebrow">
+      <div className="mx-auto max-w-5xl px-4 py-10 sm:px-5 sm:py-12 md:px-8 md:py-14">
+        <p className="mb-6 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-gradient-eyebrow sm:mb-8 sm:text-xs sm:tracking-[0.2em]">
           Stack & platforms
         </p>
         <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
-          <div className="logo-marquee-track flex w-max items-center gap-10 md:gap-14">
+          <div className="logo-marquee-track flex w-max items-center gap-6 sm:gap-10 md:gap-14">
             {loop.map((logo, i) => {
               const src =
                 'src' in logo && logo.src
@@ -477,14 +500,21 @@ function TechLogoStrip() {
 
 export default function App() {
   return (
-    <div className="page-bg min-h-svh">
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-gradient-to-b from-violet-950/[0.16] via-zinc-950/80 to-zinc-950/90 shadow-[0_12px_40px_-18px_rgba(0,0,0,0.4)] backdrop-blur-xl supports-[backdrop-filter]:bg-zinc-950/75">
-        <div className="relative mx-auto flex max-w-5xl items-center gap-3 px-5 py-4 md:px-8 lg:justify-between lg:gap-4">
+    <div className="page-bg min-h-svh min-w-0 overflow-x-clip">
+      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-gradient-to-b from-violet-950/[0.16] via-zinc-950/80 to-zinc-950/90 pt-[env(safe-area-inset-top,0px)] shadow-[0_12px_40px_-18px_rgba(0,0,0,0.4)] backdrop-blur-xl supports-[backdrop-filter]:bg-zinc-950/75">
+        <div className="relative mx-auto flex max-w-5xl items-center gap-2 px-3 py-3 sm:gap-3 sm:px-5 sm:py-4 md:px-8 lg:justify-between lg:gap-4">
           <a
             href="#top"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500/25 via-zinc-800/50 to-violet-600/25 font-mono text-sm font-semibold tracking-tight text-zinc-100 ring-1 ring-white/10 transition hover:ring-teal-400/30"
+            className="flex shrink-0 items-center gap-2 rounded-lg py-0.5 pl-0.5 pr-1 ring-1 ring-transparent transition hover:bg-white/[0.04] hover:ring-white/10 sm:gap-2.5 sm:pr-2"
+            aria-label="Orithmic Software — home"
           >
-            VS
+            <OrithmicLogoImg className="h-9 w-9 shrink-0 rounded-lg ring-1 ring-white/10" size={40} />
+            <span className="hidden min-w-0 flex-col leading-tight sm:flex">
+              <span className="font-mono text-[13px] font-semibold tracking-tight text-zinc-100">
+                orithmic
+                <span className="font-normal text-zinc-500">-software</span>
+              </span>
+            </span>
           </a>
           <nav className="hidden items-center gap-6 text-sm text-zinc-400 lg:flex" aria-label="Primary">
             {navLinks.map((l) => (
@@ -498,26 +528,26 @@ export default function App() {
             ))}
           </nav>
           <nav
-            className="-mx-1 flex min-w-0 flex-1 gap-1 overflow-x-auto px-1 text-xs text-zinc-500 lg:hidden"
+            className="-mx-0.5 flex min-w-0 flex-1 gap-0.5 overflow-x-auto overscroll-x-contain px-0.5 text-[11px] text-zinc-500 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-1 sm:text-xs lg:hidden [&::-webkit-scrollbar]:hidden"
             aria-label="Sections"
           >
             {navLinks.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="shrink-0 rounded-md px-2 py-1 transition-colors hover:bg-white/5 hover:text-teal-300"
+                className="shrink-0 rounded-md px-1.5 py-1 transition-colors hover:bg-white/5 hover:text-teal-300 sm:px-2"
               >
                 {l.label}
               </a>
             ))}
           </nav>
-          <div className="flex shrink-0 flex-wrap items-center justify-end gap-1 sm:gap-2">
+          <div className="flex shrink-0 items-center justify-end gap-0.5 sm:gap-2">
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className={contactIconBtnClass}
               aria-label={`Email ${CONTACT_EMAIL}`}
             >
-              <MailIcon className="h-5 w-5" />
+              <MailIcon className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <a
               href={WHATSAPP_URL}
@@ -526,7 +556,7 @@ export default function App() {
               className={contactIconBtnClass}
               aria-label="WhatsApp"
             >
-              <WhatsAppIcon className="h-5 w-5" />
+              <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <a
               href={LINKEDIN_URL}
@@ -535,7 +565,7 @@ export default function App() {
               className={contactIconBtnClass}
               aria-label="LinkedIn"
             >
-              <LinkedInIcon className="h-5 w-5" />
+              <LinkedInIcon className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <a
               href={GITHUB_URL}
@@ -544,7 +574,7 @@ export default function App() {
               className={contactIconBtnClass}
               aria-label="GitHub"
             >
-              <GitHubIcon className="h-5 w-5" />
+              <GitHubIcon className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
           </div>
         </div>
@@ -580,48 +610,67 @@ export default function App() {
             className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-zinc-950/55 via-zinc-950/35 to-zinc-950/60"
             aria-hidden
           />
-          <div className="relative z-10 w-full overflow-hidden py-[3.6rem] md:py-[5.04rem]">
+          <div className="relative z-10 w-full overflow-hidden py-12 sm:py-14 md:py-[5.04rem]">
             <div
               className="pointer-events-none absolute inset-0 bg-white/5"
               aria-hidden
             />
-            <div className="relative z-10 mx-auto max-w-5xl px-5 md:px-8">
-              <div className="grid items-start gap-10 md:grid-cols-[1fr_minmax(0,17rem)] md:items-center md:gap-12 lg:grid-cols-[1fr_minmax(0,19rem)]">
-                <div>
-                  <p className="font-mono text-sm text-teal-400/90">
+            <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-5 md:px-8">
+              <div className="grid min-w-0 items-start gap-8 sm:gap-10 md:grid-cols-[1fr_minmax(0,17rem)] md:items-center md:gap-12 lg:grid-cols-[1fr_minmax(0,19rem)]">
+                <div className="min-w-0">
+                  <a
+                    href={ORITHMIC_ORG_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mb-4 inline-flex max-w-full items-center gap-3 rounded-xl border border-white/[0.08] bg-zinc-950/40 px-3 py-2.5 ring-1 ring-white/[0.06] transition hover:border-teal-500/25 hover:ring-teal-500/20 sm:mb-5 sm:px-3.5"
+                  >
+                    <OrithmicLogoImg
+                      className="h-10 w-10 shrink-0 rounded-lg ring-1 ring-white/10 sm:h-11 sm:w-11"
+                      size={44}
+                    />
+                    <span className="min-w-0 text-left">
+                      <span className="block font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500">
+                        Company
+                      </span>
+                      <span className="mt-0.5 block font-mono text-sm font-semibold tracking-tight text-zinc-100 sm:text-base">
+                        Orithmic Software
+                      </span>
+                    </span>
+                  </a>
+                  <p className="font-mono text-xs text-teal-400/90 sm:text-sm">
                     Haifa, Israel - Worldwide
                   </p>
-                  <h1 className="text-gradient-brand mt-4 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl md:leading-[1.1]">
+                  <h1 className="text-gradient-brand mt-3 max-w-[22rem] text-[1.65rem] font-semibold leading-tight tracking-tight min-[400px]:max-w-none min-[400px]:text-3xl sm:mt-4 sm:text-4xl md:text-5xl md:leading-[1.1]">
                     Vladislav Sokolov
                   </h1>
-                  <p className="mt-3 text-xl text-zinc-400 md:text-2xl">
+                  <p className="mt-2 text-pretty text-lg leading-snug text-zinc-400 sm:mt-3 sm:text-xl md:text-2xl">
                     Software Architect & Technical Lead
                   </p>
-                  <p className="mt-2 max-w-2xl text-lg leading-relaxed text-zinc-400">
+                  <p className="mt-2 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
                     Over 16 years building scalable products, microservices, and
                     cross-platform clients—from protocol work and backends to mobile
                     and TV apps.
                   </p>
-                  <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 md:text-lg">
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-500 sm:mt-4 sm:text-base md:text-lg">
                     Building strong R&amp;D teams—hands-on in recruiting, ramp-up, and
                     ongoing technical mentoring.
                   </p>
-                  <div className="mt-10 flex flex-wrap gap-4">
+                  <div className="mt-8 flex min-w-0 flex-wrap gap-3 sm:mt-10 sm:gap-4">
                     <a
                       href="#contact"
-                      className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-teal-500/20 to-emerald-500/15 px-5 py-2.5 text-sm font-medium text-teal-200 ring-1 ring-teal-400/45 transition hover:from-teal-500/30 hover:to-emerald-500/25 hover:shadow-[0_0_24px_-4px_rgba(45,212,191,0.35)]"
+                      className="inline-flex min-h-11 min-w-[44px] flex-1 items-center justify-center rounded-lg bg-gradient-to-r from-teal-500/20 to-emerald-500/15 px-4 py-2.5 text-sm font-medium text-teal-200 ring-1 ring-teal-400/45 transition hover:from-teal-500/30 hover:to-emerald-500/25 hover:shadow-[0_0_24px_-4px_rgba(45,212,191,0.35)] sm:flex-none sm:px-5"
                     >
                       Connect
                     </a>
                     <a
                       href="#experience"
-                      className="inline-flex items-center justify-center rounded-lg bg-zinc-900/40 px-5 py-2.5 text-sm font-medium text-zinc-300 ring-1 ring-zinc-600/80 transition hover:bg-white/[0.06] hover:ring-violet-500/25"
+                      className="inline-flex min-h-11 min-w-[44px] flex-1 items-center justify-center rounded-lg bg-zinc-900/40 px-4 py-2.5 text-sm font-medium text-zinc-300 ring-1 ring-zinc-600/80 transition hover:bg-white/[0.06] hover:ring-violet-500/25 sm:flex-none sm:px-5"
                     >
                       View experience
                     </a>
                   </div>
                 </div>
-                <div className="mx-auto w-full max-w-[17rem] md:mx-0 md:max-w-none">
+                <div className="mx-auto w-full max-w-[min(100%,17rem)] md:mx-0 md:max-w-none">
                   <img
                     src={`${import.meta.env.BASE_URL}portrait.png`}
                     alt="Vladislav Sokolov"
@@ -639,14 +688,14 @@ export default function App() {
 
         <TechLogoStrip />
 
-        <section className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
+        <section className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-24">
           <SectionTitle
             id="about"
             eyebrow="Profile"
             title="What I focus on"
           />
-          <div className="grid gap-8 md:grid-cols-[1fr_280px] md:gap-12">
-            <div className="space-y-4 text-lg leading-relaxed text-zinc-400">
+          <div className="grid gap-8 lg:grid-cols-[1fr_minmax(0,280px)] lg:gap-12">
+            <div className="min-w-0 space-y-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
               <p>
                 Results-driven architect and technical lead with a track record
                 across research, hands-on development, and team leadership. I
@@ -659,7 +708,7 @@ export default function App() {
                 protocol-oriented development where the problem demands it.
               </p>
             </div>
-            <aside className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/50 to-zinc-950/90 p-6 shadow-[0_0_40px_-16px_rgba(139,92,246,0.12)] ring-1 ring-violet-500/10">
+            <aside className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/50 to-zinc-950/90 p-5 shadow-[0_0_40px_-16px_rgba(139,92,246,0.12)] ring-1 ring-violet-500/10 sm:p-6 lg:max-w-none">
               <h3 className="text-sm font-semibold text-zinc-200">At a glance</h3>
               <dl className="mt-4 space-y-3 text-sm">
                 <div>
@@ -686,13 +735,13 @@ export default function App() {
         </section>
 
         <section className="border-y border-white/[0.06] bg-gradient-to-b from-violet-950/[0.12] via-transparent to-teal-950/[0.08]">
-          <div className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
+          <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-24">
             <SectionTitle id="skills" eyebrow="Toolkit" title="Skills" />
             <SkillsTagCloud />
           </div>
         </section>
 
-        <section className="mx-auto max-w-5xl px-5 py-16 font-mono text-sm leading-relaxed md:px-8 md:py-24 md:text-[0.9375rem]">
+        <section className="mx-auto max-w-5xl px-4 py-14 font-mono text-xs leading-relaxed sm:px-5 sm:py-16 sm:text-sm md:px-8 md:py-24 md:text-[0.9375rem]">
           <SectionTitle
             id="experience"
             eyebrow="Timeline"
@@ -720,21 +769,25 @@ export default function App() {
                     <div className="flex min-w-0 items-start gap-3">
                       <CompanyBrandMark brand={job.brand} />
                       <div className="min-w-0">
-                        <h3 className="text-base font-semibold tracking-tight text-zinc-100 md:text-lg">
+                        <h3 className="text-base font-semibold tracking-tight text-zinc-100 break-words md:text-lg">
                           {job.company}
                         </h3>
-                        <p className="mt-0.5 text-zinc-400">{job.role}</p>
+                        <p className="mt-0.5 text-pretty break-words text-zinc-400">
+                          {job.role}
+                        </p>
                       </div>
                     </div>
-                    <p className="shrink-0 text-xs text-zinc-500 sm:text-right md:text-sm">
+                    <p className="shrink-0 text-[11px] text-zinc-500 sm:text-xs sm:text-right md:text-sm">
                       {job.period}
                       <span className="hidden sm:inline"> · </span>
-                      <span className="block sm:inline">{job.location}</span>
+                      <span className="block max-w-full break-words sm:inline">
+                        {job.location}
+                      </span>
                     </p>
                   </div>
                   <div className="mt-4 space-y-2 text-zinc-400">
                     {job.highlights.map((h) => (
-                      <p key={h}>
+                      <p key={h} className="text-pretty break-words">
                         <span className="select-none text-teal-500/70">* </span>
                         {h}
                       </p>
@@ -747,10 +800,10 @@ export default function App() {
         </section>
 
         <section className="border-t border-white/[0.06] bg-gradient-to-b from-zinc-950/40 to-transparent">
-          <div className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
+          <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-24">
             <SectionTitle id="projects" eyebrow="Highlights" title="Key projects" />
-            <div className="grid gap-6 md:grid-cols-2">
-              <article className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/45 to-zinc-950/95 p-6 shadow-[0_0_50px_-20px_rgba(45,212,191,0.12)] ring-1 ring-teal-500/15 md:p-8">
+            <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
+              <article className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/45 to-zinc-950/95 p-5 shadow-[0_0_50px_-20px_rgba(45,212,191,0.12)] ring-1 ring-teal-500/15 sm:p-6 md:p-8">
                 <div className="flex flex-wrap items-center gap-3">
                   <img
                     src={BRIGHT_SDK_ICON}
@@ -775,7 +828,7 @@ export default function App() {
                   IPs within two years.
                 </p>
               </article>
-              <article className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/45 to-zinc-950/95 p-6 shadow-[0_0_50px_-20px_rgba(139,92,246,0.1)] ring-1 ring-violet-500/15 md:p-8">
+              <article className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/45 to-zinc-950/95 p-5 shadow-[0_0_50px_-20px_rgba(139,92,246,0.1)] ring-1 ring-violet-500/15 sm:p-6 md:p-8">
                 <div className="flex flex-wrap items-center gap-3">
                   <img
                     src={PRIVATE_COMPANY_LOGO}
@@ -801,15 +854,15 @@ export default function App() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
-          <div className="grid gap-12 md:grid-cols-2">
-            <div>
+        <section className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-24">
+          <div className="grid gap-10 sm:gap-12 md:grid-cols-2">
+            <div className="min-w-0">
               <SectionTitle
                 id="education"
                 eyebrow="Education"
                 title="Degrees"
               />
-              <div className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/40 to-zinc-950/90 p-6 ring-1 ring-white/5">
+              <div className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/40 to-zinc-950/90 p-5 ring-1 ring-white/5 sm:p-6">
                 <h3 className="font-semibold text-zinc-100">
                   MA in Creative Arts and Producing
                 </h3>
@@ -821,16 +874,16 @@ export default function App() {
                 </p>
               </div>
             </div>
-            <div>
-              <div className="mb-10 scroll-mt-24">
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-gradient-eyebrow">
+            <div className="min-w-0">
+              <div className="mb-8 scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] sm:mb-10 md:scroll-mt-28">
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-gradient-eyebrow sm:text-xs sm:tracking-[0.2em]">
                   Credentials
                 </p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-100 md:text-3xl">
+                <h2 className="mt-2 text-xl font-semibold tracking-tight text-zinc-100 sm:text-2xl md:text-3xl">
                   Certifications
                 </h2>
               </div>
-              <ul className="columns-1 gap-x-8 text-sm text-zinc-400 sm:columns-2">
+              <ul className="columns-1 gap-x-6 text-sm text-zinc-400 min-[480px]:columns-2 min-[480px]:gap-x-8">
                 {certifications.map((c) => (
                   <li key={c} className="mb-2 break-inside-avoid">
                     {c}
@@ -843,13 +896,16 @@ export default function App() {
 
         <section
           id="contact"
-          className="border-t border-white/[0.06] bg-gradient-to-b from-violet-950/[0.15] via-transparent to-[var(--color-surface)]"
+          className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] border-t border-white/[0.06] bg-gradient-to-b from-violet-950/[0.15] via-transparent to-[var(--color-surface)] md:scroll-mt-28"
         >
-          <div className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-20">
-            <h2 className="text-gradient-brand text-2xl font-semibold tracking-tight">
-              Contact
-            </h2>
-            <p className="mt-2 max-w-xl text-zinc-400">
+          <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-20">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <OrithmicLogoImg className="h-10 w-10 shrink-0 rounded-lg ring-1 ring-white/10 sm:h-11 sm:w-11" size={44} />
+              <h2 className="text-gradient-brand text-xl font-semibold tracking-tight sm:text-2xl">
+                Contact
+              </h2>
+            </div>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400 sm:text-base">
               Happy to share experience on architecture, platform engineering,
               and technical leadership—and to explore collaboration when there is
               a good fit.
@@ -863,7 +919,7 @@ export default function App() {
                 className={contactIconBtnClass}
                 aria-label={`Email ${CONTACT_EMAIL}`}
               >
-                <MailIcon className="h-5 w-5" />
+                <MailIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
                 href={WHATSAPP_URL}
@@ -872,7 +928,7 @@ export default function App() {
                 className={contactIconBtnClass}
                 aria-label="WhatsApp"
               >
-                <WhatsAppIcon className="h-5 w-5" />
+                <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
                 href={LINKEDIN_URL}
@@ -881,7 +937,7 @@ export default function App() {
                 className={contactIconBtnClass}
                 aria-label="LinkedIn"
               >
-                <LinkedInIcon className="h-5 w-5" />
+                <LinkedInIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
                 href={GITHUB_URL}
@@ -890,15 +946,31 @@ export default function App() {
                 className={contactIconBtnClass}
                 aria-label="GitHub"
               >
-                <GitHubIcon className="h-5 w-5" />
+                <GitHubIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/[0.06] py-8 text-center text-sm text-zinc-600">
-        <p>© {new Date().getFullYear()} Vladislav Sokolov</p>
+      <footer className="border-t border-white/[0.06] px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-xs text-zinc-600 sm:py-8 sm:pb-[max(2rem,env(safe-area-inset-bottom))] sm:text-sm md:px-8">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+          <a
+            href={ORITHMIC_ORG_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2.5 rounded-lg py-1 pl-1 pr-2 text-zinc-500 ring-1 ring-transparent transition hover:text-zinc-400 hover:ring-white/10"
+          >
+            <OrithmicLogoImg className="h-8 w-8 rounded-md ring-1 ring-white/10" size={32} />
+            <span className="text-left font-mono text-[11px] leading-tight sm:text-xs">
+              <span className="block font-medium text-zinc-400">Orithmic Software</span>
+              <span className="text-zinc-600">GitHub org</span>
+            </span>
+          </a>
+          <p className="text-center sm:text-right">
+            © {new Date().getFullYear()} Vladislav Sokolov
+          </p>
+        </div>
       </footer>
     </div>
   )

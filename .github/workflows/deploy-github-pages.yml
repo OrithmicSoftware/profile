@@ -25,9 +25,11 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
+      # Publishes to branch gh-pages → https://orithmicsoftware.github.io/profile/
       - name: Push dist to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: gh-pages
           commit_message: 'deploy: ${{ github.sha }}'

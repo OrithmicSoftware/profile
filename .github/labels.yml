@@ -11,7 +11,7 @@
 
 - name: content
   color: bfdadc
-  description: Copy, CV, or factual site content
+  description: Copy, portfolio, or factual site content
 
 - name: design
   color: f9d0c4

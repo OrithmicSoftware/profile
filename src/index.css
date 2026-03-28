@@ -16,6 +16,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -24,6 +25,9 @@ body {
   background: var(--color-surface);
   color: oklch(0.78 0.02 260);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Subtle grid + ambient gradients on the page shell */

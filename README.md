@@ -8,14 +8,20 @@ Single-page résumé and portfolio for **Vladislav Sokolov** (software architect
 
 **Repository:** [github.com/OrithmicSoftware/profile](https://github.com/OrithmicSoftware/profile) (under org [OrithmicSoftware](https://github.com/OrithmicSoftware)).
 
-**Live site:** [https://orithmicsoftware.github.io/profile/](https://orithmicsoftware.github.io/profile/) after GitHub Pages is enabled on the repo (typically **`gh-pages`** branch from the deploy workflow).
+**Live site (project Pages):** **[https://orithmicsoftware.github.io/profile/](https://orithmicsoftware.github.io/profile/)**
 
-### Move an existing repo into the org
+### Turn on the correct Pages URL
 
-1. On GitHub: **Settings → General → Danger zone → Transfer ownership** (transfer `pun4drunk/profile` to **OrithmicSoftware**), *or* create an empty **`profile`** repo under the org and push `main` from this clone.
-2. Locally: `git remote set-url origin git@github.com:OrithmicSoftware/profile.git` then `git push -u origin main`.
-3. In the **org** or **repo**: allow **Actions** and set **Workflow permissions** to **Read and write** if deploy/label workflows need it.
-4. **Pages:** repo **Settings → Pages** — source **`gh-pages`** / root (match your deploy workflow). The site URL will be **`https://orithmicsoftware.github.io/profile/`** while the repo is named `profile`.
+Your app is built with **`base: '/profile/'`** so it only works at that path under the org’s GitHub Pages host (repo name = `profile`).
+
+1. **Org Actions (if deploy fails):** [OrithmicSoftware organization settings](https://github.com/organizations/OrithmicSoftware/settings/actions) → **General** → allow **Actions**, and set **Workflow permissions** to **Read and write** (needed to push the `gh-pages` branch).
+2. **Run deploy:** push to `main` or open **Actions → Deploy to GitHub Pages → Run workflow**. Wait until it finishes and the `gh-pages` branch exists.
+3. **Point Pages at `gh-pages`:** In [profile → Settings → Pages](https://github.com/OrithmicSoftware/profile/settings/pages):
+   - **Build and deployment** → **Source:** *Deploy from a branch*
+   - **Branch:** `gh-pages` / **/(root)** → Save  
+4. After a short wait, the site should load at **`https://orithmicsoftware.github.io/profile/`** (not `pun4drunk.github.io` and not `/CV/` — those are old hosts/paths).
+
+**Preview like production Pages:** `npm run preview:pages`
 
 ## Scripts
 
@@ -23,7 +29,8 @@ Single-page résumé and portfolio for **Vladislav Sokolov** (software architect
 |--------|-------------|
 | `npm run dev` | Local dev server |
 | `npm run build` | Typecheck + production build (`/profile/` base for Pages) |
-| `npm run preview` | Preview production build locally |
+| `npm run preview` | Preview production build locally (`/` base) |
+| `npm run preview:pages` | Build + preview with **`/profile/`** base (same as GitHub Pages) |
 | `npm run lint` | ESLint (warnings fail) |
 | `npm run lint:fix` | ESLint with `--fix` |
 | `npm run typecheck` | `tsc -b --noEmit` |
@@ -31,9 +38,9 @@ Single-page résumé and portfolio for **Vladislav Sokolov** (software architect
 
 ## GitHub Pages
 
-- **Source:** deploy from branch **`gh-pages`** (root).
-- **Workflow:** [`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml) — runs lint, typecheck, build, then pushes `dist/` via [peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages).
-- **Base path:** production builds use `base: '/profile/'` in [`vite.config.ts`](vite.config.ts). If you rename the repository, update `base` to match.
+- **Public URL:** `https://orithmicsoftware.github.io/profile/`
+- **Source:** branch **`gh-pages`**, folder **`/` (root)** — content is published by [`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml) (lint, typecheck, `npm run build`, then [peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages) pushes `dist/`).
+- **Base path:** [`vite.config.ts`](vite.config.ts) uses `base: '/profile/'` in production. If you **rename the repository**, change `base` to `'/<new-repo-name>/'`.
 
 ## CI
 
