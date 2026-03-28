@@ -8,21 +8,35 @@ on:
       - '.github/labels.yml'
       - '.github/workflows/sync-labels.yml'
 
-# Creating/updating labels needs write on the Issues API. If the workflow still
-# fails with 403, open: Settings → Actions → General → Workflow permissions and
-# set "Read and write permissions" (org-wide "Read" default blocks elevation).
+# Labels are part of the Issues API. If Issues are disabled on the repo, writes
+# return 403 — we skip this job so the workflow (and README badge) stays green.
+# To actually sync: enable Issues under Settings → General → Features, then
+# re-run this workflow or push a change to .github/labels.yml.
+#
+# If Issues are on but the job still 403s: Settings → Actions → General →
+# Workflow permissions → Read and write permissions (org default can block).
 permissions:
   contents: read
   issues: write
-  pull-requests: write
 
 jobs:
   sync:
+    if: github.event.repository.has_issues
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: EndBug/label-sync@v2.3.3
+      - uses: EndBug/label-sync@v2
         with:
           config-file: .github/labels.yml
           delete-other-labels: false
+
+  # When Issues are off, `sync` is skipped; a no-op job keeps the run green for the README badge.
+  skipped-because-no-issues:
+    if: ${{ !github.event.repository.has_issues }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Explain skip
+        run: |
+          echo "Repository has Issues disabled — label sync is skipped (Labels API unavailable)."
+          echo "Enable Issues under Settings → General → Features, then re-run this workflow."

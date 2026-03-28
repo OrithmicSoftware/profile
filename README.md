@@ -50,7 +50,9 @@ Your app is built with **`base: '/profile/'`** so it only works at that path und
 
 Label definitions live in [`.github/labels.yml`](.github/labels.yml). Sync them to the repo: **Actions → Sync labels → Run workflow**.
 
-If the workflow fails with **403** or **Resource not accessible by integration**, the repository (or organization) default is probably **read-only** for `GITHUB_TOKEN`. Fix it under **Settings → Actions → General → Workflow permissions**: choose **Read and write permissions** and save, then re-run **Sync labels**. Issues do not need to be enabled for the Labels API to work.
+**Issues must be enabled** on the repository (Settings → General → Features → Issues) or the Labels API returns **403**; the workflow is skipped when Issues are off so the status badge stays green, but labels are not updated until you turn Issues on and run the workflow again.
+
+If Issues are on and the workflow still fails with **403** or **Resource not accessible by integration**, set **Settings → Actions → General → Workflow permissions** to **Read and write permissions**, save, then re-run **Sync labels**.
 
 ## Requirements
 
