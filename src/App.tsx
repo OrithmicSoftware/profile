@@ -3,8 +3,8 @@ import { useState } from 'react'
 const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#stack', label: 'Stack' },
-  { href: '#skills', label: 'Skills' },
   { href: '#experience', label: 'Experience' },
+  { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Projects' },
   { href: '#contact', label: 'Contact' },
 ] as const
@@ -618,25 +618,6 @@ export default function App() {
             <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-5 md:px-8">
               <div className="grid min-w-0 items-start gap-8 sm:gap-10 md:grid-cols-[1fr_minmax(0,17rem)] md:items-center md:gap-12 lg:grid-cols-[1fr_minmax(0,19rem)]">
                 <div className="min-w-0">
-                  <a
-                    href={ORITHMIC_ORG_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mb-4 inline-flex max-w-full items-center gap-3 rounded-xl border border-white/[0.08] bg-zinc-950/40 px-3 py-2.5 ring-1 ring-white/[0.06] transition hover:border-teal-500/25 hover:ring-teal-500/20 sm:mb-5 sm:px-3.5"
-                  >
-                    <OrithmicLogoImg
-                      className="h-10 w-10 shrink-0 rounded-lg ring-1 ring-white/10 sm:h-11 sm:w-11"
-                      size={44}
-                    />
-                    <span className="min-w-0 text-left">
-                      <span className="block font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500">
-                        Company
-                      </span>
-                      <span className="mt-0.5 block font-mono text-sm font-semibold tracking-tight text-zinc-100 sm:text-base">
-                        Orithmic Software
-                      </span>
-                    </span>
-                  </a>
                   <p className="font-mono text-xs text-teal-400/90 sm:text-sm">
                     Haifa, Israel - Worldwide
                   </p>
@@ -734,13 +715,6 @@ export default function App() {
           </div>
         </section>
 
-        <section className="border-y border-white/[0.06] bg-gradient-to-b from-violet-950/[0.12] via-transparent to-teal-950/[0.08]">
-          <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-24">
-            <SectionTitle id="skills" eyebrow="Toolkit" title="Skills" />
-            <SkillsTagCloud />
-          </div>
-        </section>
-
         <section className="mx-auto max-w-5xl px-4 py-14 font-mono text-xs leading-relaxed sm:px-5 sm:py-16 sm:text-sm md:px-8 md:py-24 md:text-[0.9375rem]">
           <SectionTitle
             id="experience"
@@ -799,6 +773,13 @@ export default function App() {
           </div>
         </section>
 
+        <section className="border-y border-white/[0.06] bg-gradient-to-b from-violet-950/[0.12] via-transparent to-teal-950/[0.08]">
+          <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-24">
+            <SectionTitle id="skills" eyebrow="Toolkit" title="Skills" />
+            <SkillsTagCloud />
+          </div>
+        </section>
+
         <section className="border-t border-white/[0.06] bg-gradient-to-b from-zinc-950/40 to-transparent">
           <div className="mx-auto max-w-5xl px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-24">
             <SectionTitle id="projects" eyebrow="Highlights" title="Key projects" />
@@ -824,8 +805,8 @@ export default function App() {
                   partner products.
                 </p>
                 <p className="mt-3 text-sm text-teal-300/90">
-                  Helped scale the residential proxy network to up to ~8M daily
-                  IPs within two years.
+                  Helped scale the residential proxy network to up to ~11M daily
+                  IPs within three years.
                 </p>
               </article>
               <article className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/45 to-zinc-950/95 p-5 shadow-[0_0_50px_-20px_rgba(139,92,246,0.1)] ring-1 ring-violet-500/15 sm:p-6 md:p-8">
