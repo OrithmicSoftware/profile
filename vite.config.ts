@@ -4,14 +4,14 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 // GitHub Pages path = repository name. CI sets VITE_BASE_PATH=/repo-name/; local
-// `npm run build` defaults to /sample-project/ (see README).
+// `npm run build` defaults to /profile/ (see README).
 function pagesBaseFromEnv(): string {
   const raw = process.env.VITE_BASE_PATH?.trim()
   if (raw) {
     const withSlash = raw.startsWith('/') ? raw : `/${raw}`
     return withSlash.endsWith('/') ? withSlash : `${withSlash}/`
   }
-  return '/sample-project/'
+  return '/profile/'
 }
 
 export default defineConfig(({ mode }) => ({
