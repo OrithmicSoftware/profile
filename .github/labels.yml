@@ -1,0 +1,58 @@
+# Sync to the repo via Actions → "Sync labels" workflow (EndBug/label-sync)
+# https://github.com/EndBug/label-sync
+
+- name: bug
+  color: d73a4a
+  description: Something is broken
+
+- name: enhancement
+  color: a2eeef
+  description: Improvement or new feature
+
+- name: content
+  color: bfdadc
+  description: Copy, CV, or factual site content
+
+- name: design
+  color: f9d0c4
+  description: Layout, visuals, UX
+
+- name: dependencies
+  color: 0366d6
+  description: npm or tooling upgrades
+
+- name: documentation
+  color: 0075ca
+  description: README, comments, or developer docs
+
+- name: ci
+  color: fefc93
+  description: GitHub Actions, lint, or build pipeline
+
+- name: pages
+  color: 5319e7
+  description: GitHub Pages or deploy / base URL
+
+- name: good first issue
+  color: 7057ff
+  description: Good for newcomers
+
+- name: help wanted
+  color: 008672
+  description: Extra attention welcome
+
+- name: question
+  color: d876e3
+  description: Needs clarification or discussion
+
+- name: duplicate
+  color: cfd3d7
+  description: Already tracked elsewhere
+
+- name: invalid
+  color: e4e669
+  description: Not applicable or cannot reproduce
+
+- name: wontfix
+  color: ffffff
+  description: Will not be addressed

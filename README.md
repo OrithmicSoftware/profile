@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+# CV — portfolio site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![CI](https://github.com/pun4drunk/CV/actions/workflows/ci.yml/badge.svg)](https://github.com/pun4drunk/CV/actions/workflows/ci.yml)
+[![Pages](https://github.com/pun4drunk/CV/actions/workflows/deploy-github-pages.yml/badge.svg)](https://github.com/pun4drunk/CV/actions/workflows/deploy-github-pages.yml)
+[![Labels](https://github.com/pun4drunk/CV/actions/workflows/sync-labels.yml/badge.svg)](https://github.com/pun4drunk/CV/actions/workflows/sync-labels.yml)
 
-Currently, two official plugins are available:
+Single-page résumé and portfolio for **Vladislav Sokolov** (software architect & technical lead), built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Live site:** [https://pun4drunk.github.io/CV/](https://pun4drunk.github.io/CV/) (after GitHub Pages is enabled for the `gh-pages` branch.)
 
-## React Compiler
+## Scripts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Command | Description |
+|--------|-------------|
+| `npm run dev` | Local dev server |
+| `npm run build` | Typecheck + production build (`/CV/` base for Pages) |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | ESLint (warnings fail) |
+| `npm run lint:fix` | ESLint with `--fix` |
+| `npm run typecheck` | `tsc -b --noEmit` |
+| `npm run check` | Lint → typecheck → build |
 
-## Expanding the ESLint configuration
+## GitHub Pages
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Source:** deploy from branch **`gh-pages`** (root).
+- **Workflow:** [`.github/workflows/deploy-github-pages.yml`](.github/workflows/deploy-github-pages.yml) — runs lint, typecheck, build, then pushes `dist/` via [peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages).
+- **Base path:** production builds use `base: '/CV/'` in [`vite.config.ts`](vite.config.ts). If you rename the repository, update `base` to match.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## CI
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on pushes and pull requests to `main` / `master`: install, lint, typecheck, build.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Issue labels
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Label definitions live in [`.github/labels.yml`](.github/labels.yml). Sync them to the repo: **Actions → Sync labels → Run workflow**.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Requirements
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Node.js **22** (recommended; CI uses 22)
+
+## License
+
+Private / all rights reserved unless you add a license file.
