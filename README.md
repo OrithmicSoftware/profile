@@ -34,6 +34,8 @@ Single-page résumé and portfolio for **Vladislav Sokolov** (software architect
 
 Label definitions live in [`.github/labels.yml`](.github/labels.yml). Sync them to the repo: **Actions → Sync labels → Run workflow**.
 
+If the workflow fails with **403** or **Resource not accessible by integration**, the repository (or organization) default is probably **read-only** for `GITHUB_TOKEN`. Fix it under **Settings → Actions → General → Workflow permissions**: choose **Read and write permissions** and save, then re-run **Sync labels**. Issues do not need to be enabled for the Labels API to work.
+
 ## Requirements
 
 - Node.js **22** (recommended; CI uses 22)

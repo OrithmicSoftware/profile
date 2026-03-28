@@ -8,9 +8,13 @@ on:
       - '.github/labels.yml'
       - '.github/workflows/sync-labels.yml'
 
+# Creating/updating labels needs write on the Issues API. If the workflow still
+# fails with 403, open: Settings → Actions → General → Workflow permissions and
+# set "Read and write permissions" (org-wide "Read" default blocks elevation).
 permissions:
   contents: read
   issues: write
+  pull-requests: write
 
 jobs:
   sync:
@@ -18,8 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: EndBug/label-sync@v2
+      - uses: EndBug/label-sync@v2.3.3
         with:
           config-file: .github/labels.yml
           delete-other-labels: false
-          token: ${{ secrets.GITHUB_TOKEN }}
