@@ -977,6 +977,7 @@ const HOLA_LOGO =
   'https://cdn4.hola.org/www/hola/pub/img/hola_logo_letters.svg?ver=1.251.541'
 const SPIRAL_LOGO =
   'https://www.spiralsolutions.com/wp-content/uploads/2017/06/spiral_logo_small_500.png'
+const CERTIFICATE_BADGE_ICON = `${import.meta.env.BASE_URL}certificate-badge.png`
 
 const skillChipClass: Record<
   (typeof skillGroups)[number]['variant'],
@@ -1595,6 +1596,76 @@ export default function App() {
     []
   )
 
+  useEffect(() => {
+    let scrollAnimationFrame: number | null = null
+
+    const animateScrollTo = (targetY: number, durationMs: number) => {
+      if (scrollAnimationFrame != null) {
+        window.cancelAnimationFrame(scrollAnimationFrame)
+        scrollAnimationFrame = null
+      }
+
+      const startY = window.scrollY
+      const deltaY = targetY - startY
+      const startTs = window.performance.now()
+
+      const tick = (nowTs: number) => {
+        const t = Math.min(1, (nowTs - startTs) / durationMs)
+        const eased =
+          t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2
+
+        window.scrollTo(0, startY + deltaY * eased)
+
+        if (t < 1) {
+          scrollAnimationFrame = window.requestAnimationFrame(tick)
+          return
+        }
+
+        scrollAnimationFrame = null
+      }
+
+      scrollAnimationFrame = window.requestAnimationFrame(tick)
+    }
+
+    const onDocumentClick = (event: MouseEvent) => {
+      const path = event.composedPath()
+      const linkInPath = path.find(
+        (node) => node instanceof HTMLAnchorElement,
+      )
+      if (!(linkInPath instanceof HTMLAnchorElement)) return
+
+      const href = linkInPath.getAttribute('href')
+      if (href == null || !href.startsWith('#') || href.length < 2) return
+
+      const id = href.slice(1).trim()
+      if (id.length === 0) return
+      const section = document.getElementById(id)
+      if (section == null) return
+
+      event.preventDefault()
+      const header = document.querySelector('header')
+      const headerHeight =
+        header instanceof HTMLElement ? header.getBoundingClientRect().height : 0
+      const y = section.getBoundingClientRect().top + window.scrollY - headerHeight - 8
+      const targetY = Math.max(0, y)
+      const distance = Math.abs(targetY - window.scrollY)
+      const durationMs = Math.max(420, Math.min(900, distance * 0.7))
+
+      animateScrollTo(targetY, durationMs)
+      history.replaceState(null, '', `#${id}`)
+    }
+
+    document.addEventListener('click', onDocumentClick)
+    return () => {
+      document.removeEventListener('click', onDocumentClick)
+      if (scrollAnimationFrame != null) {
+        window.cancelAnimationFrame(scrollAnimationFrame)
+      }
+    }
+  }, [])
+
   return (
     <div className="page-bg min-h-svh min-w-0 overflow-x-clip">
       <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-gradient-to-b from-violet-950/[0.16] via-zinc-950/80 to-zinc-950/90 pt-[env(safe-area-inset-top,0px)] shadow-[0_12px_40px_-18px_rgba(0,0,0,0.4)] backdrop-blur-xl supports-[backdrop-filter]:bg-zinc-950/75">
@@ -1706,7 +1777,7 @@ export default function App() {
             className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-zinc-950/55 via-zinc-950/35 to-zinc-950/60"
             aria-hidden
           />
-          <div className="relative z-10 w-full overflow-hidden py-12 sm:py-14 md:py-[5.04rem]">
+          <div className="relative z-10 w-full overflow-hidden py-16 sm:py-20 md:py-[6rem]">
             <div
               className="pointer-events-none absolute inset-0 bg-white/5"
               aria-hidden
@@ -2062,8 +2133,17 @@ export default function App() {
                 title="Degrees"
               />
               <div className="rounded-xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/40 to-zinc-950/90 p-5 ring-1 ring-white/5 sm:p-6">
-                <h3 className="font-semibold text-zinc-100">
-                  MA in Creative Arts and Producing
+                <h3 className="inline-flex items-center gap-2 font-semibold text-zinc-100">
+                  <img
+                    src={CERTIFICATE_BADGE_ICON}
+                    alt=""
+                    aria-hidden
+                    width={18}
+                    height={18}
+                    className="h-[18px] w-[18px] shrink-0 object-contain invert"
+                    loading="lazy"
+                  />
+                  <span>MA in Creative Arts and Producing</span>
                 </h3>
                 <p className="mt-1 text-zinc-400">
                   Institute of Modern Knowledge · Minsk, Belarus
