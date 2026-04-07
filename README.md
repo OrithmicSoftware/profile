@@ -61,3 +61,8 @@ If Issues are on and the workflow still fails with **403** or **Resource not acc
 ## License
 
 Private / all rights reserved unless you add a license file.
+
+## AI Studio
+
+- Project onboarding entry: [`AI-STUDIO.md`](AI-STUDIO.md)
+- Shared role system and templates: `..\ai-studio\README.md`
